@@ -158,12 +158,13 @@ h3 {
 
 @media (min-width: 768px) {
   #wrapper {
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
     border: solid rgb(37, 178, 224) 5px;
     border-radius: 5px;
     background-color: white;
     padding: 10px;
+    margin-top: 20px;
 
 
   }
@@ -172,6 +173,12 @@ h3 {
     background-image: url(/images/site/checkerboard.jpg);
     background-repeat: repeat;
     background-size: 400px 400px;
+
+  }
+
+  #bottom-section {
+    display: grid;
+    grid-template-columns: auto auto;
 
   }
 
