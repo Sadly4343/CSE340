@@ -19,16 +19,19 @@ invCont.buildByClassificationId = async function (req, res, next) {
     })
 }
 invCont.buildByCarId = async function (req, res, next) {
-    const classification_id = req.params.classificationId
-    const data = await invModel.getInventoryByCarId(classification_id)
-    const grid = await utilities.buildClassificationGrid(data)
+    const car_Id = req.params.carId
+    console.log("Car ID: ", car_Id)
+    const data = await invModel.getInventoryByCarId(car_Id)
+    console.log("Data from Model:", data)
+    const card = await utilities.buildClassificationCard([data])
     let nav = await utilities.getNav()
-    const className = data[0].classification_name
-    res.render("./inventory/classification", {
-        title: className + " vehicles",
+    const carName = data.inv_make + " " + data.inv_model;
+    res.render("./inventory/carview", {
+        title: carName + " Details",
         nav,
-        grid,
-    })
+        card,
+    });
+
 }
 
 

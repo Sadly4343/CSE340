@@ -56,6 +56,22 @@ Util.buildClassificationGrid = async function (data) {
     }
     return grid
 }
+Util.buildClassificationCard = async function (data) {
+    let card = "";
+    if (data.length > 0) {
+        card = '<div id="inv_card">';
+        data.forEach(vehicle => {
+            card += '<div>'
+            card += '<a href="../../inv/detail/' + vehicle.inv_id > '</a>'
+            card += '<p>Test</p>'
+
+        })
+        card += '</div>'
+    } else {
+        card += '<p class="none"> No matches </p>'
+    }
+    return card
+}
 
 /* ****************************************
  * Middleware For Handling Errors
