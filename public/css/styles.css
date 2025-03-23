@@ -80,12 +80,42 @@ main {
 
 nav {
 
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+
+
+
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  list-style-type: none;
+
+}
+
+div#inv_card {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+div.vehicle-card img {
   width: 100%;
+  height: auto;
+}
 
+nav a {
+  text-decoration: none;
+  padding: 10px;
+  border: solid black 3px;
 
+}
 
+nav a:hover {
+  background-color: lightblue;
 }
 
 #container {
@@ -150,10 +180,27 @@ h3 {
 
 }
 
+#inv_descrip {
+  background-color: lightblue;
+  border: solid 3px black;
+  box-shadow: 0px 5px 5px black;
+}
+
 .siteName a {
   font-size: 25px;
 
 
+}
+
+@media (max-width: 600px) {
+  div#inv_card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav ul {
+    padding: 0px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -168,6 +215,13 @@ h3 {
 
 
   }
+
+  nav ul li {
+    flex-direction: column;
+
+  }
+
+
 
   body {
     background-image: url(/images/site/checkerboard.jpg);

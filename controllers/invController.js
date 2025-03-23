@@ -11,26 +11,36 @@ invCont.buildByClassificationId = async function (req, res, next) {
     const data = await invModel.getInventoryByClassificationId(classification_id)
     const grid = await utilities.buildClassificationGrid(data)
     let nav = await utilities.getNav()
-    const className = data[0].classification_name
-    res.render("./inventory/classification", {
-        title: className + " vehicles",
-        nav,
-        grid,
-    })
+    if (data.length > 0 && data[0].classification_name != undefined) {
+        const className = data[0].classification_name;
+        res.render("./inventory/classification", {
+            title: className + " vehicles",
+            nav,
+            grid,
+        })
+    }
+    else {
+        next({ status: 404, message: 'Sorry, we appear to have lost that page.' });
+    }
+
 }
+
 invCont.buildByCarId = async function (req, res, next) {
     const car_Id = req.params.carId
-    console.log("Car ID: ", car_Id)
     const data = await invModel.getInventoryByCarId(car_Id)
-    console.log("Data from Model:", data)
-    const card = await utilities.buildClassificationCard([data])
-    let nav = await utilities.getNav()
-    const carName = data.inv_make + " " + data.inv_model;
-    res.render("./inventory/carview", {
-        title: carName + " Details",
-        nav,
-        card,
-    });
+
+    if (data != null || data != undefined) {
+        const carName = data.inv_year + " " + data.inv_make + " " + data.inv_model;
+        const card = await utilities.buildClassificationCard([data])
+        let nav = await utilities.getNav()
+        res.render("./inventory/carview", {
+            title: carName,
+            nav,
+            card,
+        })
+    } else {
+        next({ status: 404, message: 'Sorry, we appear to have lost that page.' });
+    }
 
 }
 
