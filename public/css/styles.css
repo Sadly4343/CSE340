@@ -97,7 +97,7 @@ nav ul {
 
 }
 
-div#inv_card {
+div.vehicle-card {
   display: grid;
   grid-template-columns: auto auto;
 }
@@ -193,7 +193,7 @@ h3 {
 }
 
 @media (max-width: 600px) {
-  div#inv_card {
+  div.vehicle-card {
     display: flex;
     flex-direction: column;
   }

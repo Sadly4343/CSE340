@@ -63,17 +63,19 @@ Util.buildClassificationCard = async function (data) {
         card = '<div id="inv_card">';
         data.forEach(vehicle => {
             card += '<div>'
-            card += '<a href="../../inv/detail/' + vehicle.inv_make > '</a>'
+            card += '<a href="../../inv/detail/' + vehicle.inv_make > '></a>';
             card += '<img src="' + vehicle.inv_image
                 + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
-                + ' on CSE Motors" /></a > '
+                + ' on CSE Motors" /> '
             card1 += '<div id="inv_descrip">'
-            card1 += '<h2>' + vehicle.inv_make + " " + vehicle.inv_model + " " + 'Details'; '<h2>'
-            card1 += '<p> Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price); '</p>'
-            card1 += '<p> Description: ' + vehicle.inv_description; '</p>'
-            card1 += '<p> Color: ' + vehicle.inv_color; '</p>'
-            card1 += '<p> Miles: ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles); '</p>'
+            card1 += '<h2>' + vehicle.inv_make + " " + vehicle.inv_model + " " + 'Details</h2>';
+            card1 += '<p> Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</p>';
+            card1 += '<p> Description: ' + vehicle.inv_description + '</p>';
+            card1 += '<p> Color: ' + vehicle.inv_color + '</p>';
+            card1 += '<p> Miles: ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>';
+
         })
+        card += '</div>'
         card += '</div>'
         card1 += '</div>'
     } else {
