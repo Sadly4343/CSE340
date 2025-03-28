@@ -164,6 +164,24 @@ h3 {
   padding: 10px 0px;
 }
 
+.login-form {
+  background-color: red;
+  display: grid;
+  flex-direction: auto;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.login-form form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.login-form form label {
+  padding-top: 20px;
+}
+
 .navigation {
   display: flex;
   justify-content: space-around;
