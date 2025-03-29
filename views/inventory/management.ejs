@@ -2,19 +2,18 @@
     <h1>
         <%= title %>
     </h1>
+    <% } else { %>
+        <p>Redirecting...</p>
+        <script>window.location.href = "/";</script>
+        <% } %>
 
-    p>Testsss</p>
-    <% } else { res.redirect('/') } %>
+            <%- messages() %> <!-- Uncommented this line to render flash messages -->
 
-        <%# messages() %>
-            <p>Testsss</p>
-
-
-            <ul>
-                <li>
-                    <a href="/inv/addClassification">Add Classification</a>
-                </li>
-                <li>
-                    <a href="/inv/addInventory">Add Classification</a>
-                </li>
-            </ul>
+                <ul>
+                    <li>
+                        <a href="/inv/addclassification">Add Classification</a>
+                    </li>
+                    <li>
+                        <a href="/inv/addinventory">Add Classification</a>
+                    </li>
+                </ul>

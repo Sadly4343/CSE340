@@ -4,29 +4,31 @@ const validate = {}
 
 validate.classificationRules = () => {
     return [
-        body("classification")
+        body("classification_name")
             .trim()
             .escape()
             .notEmpty()
             .isLength({ min: 1 })
+            .matches(/^[^\s]+$/)
             .withMessage("Please provide a correct classification"),
     ]
 }
 
 validate.checkClassData = async (req, res, next) => {
-    const { classification } = req.body
+    const { classification_name } = req.body
     let errors = []
-    errors = classificationRules(req)
+    errors = validationResult(req)
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
-        res.render("inventory/addClassification", {
+        res.render("inventory/addclassification", {
             errors,
             title: "addClassification",
             nav,
-            classification,
+            classification_name,
         })
-        return
-    } next()
-}
+        return;
+    }
+    next();
+};
 
 module.exports = validate

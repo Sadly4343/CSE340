@@ -2,9 +2,52 @@
     <h1>
         <%= title %>
     </h1>
+    <% } else { %>
+        <p>Redirecting...</p>
+        <script>window.location.href = "/";</script>
+        <% } %>
 
-    p>Testsss</p>
-    <% } else { res.redirect('/') } %>
+            <%- messages() %> <!-- Uncommented this line to render flash messages -->
 
-        <%# messages() %>
-            <p>Testsss</p>
+                <p>Testsss</p>
+
+                <div class="inventory-form">
+                    <form action="/inv/addinventory" method="POST">
+                        <label for="classification">Classification:</label>
+                        <input type="text" id="classification" name="classification_name" required
+                            pattern="^[a-zA-Z0-9]*$">
+                        <!--<span>Classification cannot contain a space or special characters</span> -->
+                        <label for="make">Vehicle Make:</label>
+                        <input type="text" id="make" name="inv_make" required pattern="^[a-zA-Z0-9]*$">
+                        <span>Vehicle Make no special characters</span>
+                        <label for="model">Model:</label>
+                        <input type="text" id="model" name="inv_model" required pattern="^[a-zA-Z0-9]*$">
+                        <span>Vehicle Model no special characters</span>
+                        <label for="classification">Vehicle Year:</label>
+                        <input type="text" id="year" name="inv_year" required pattern="^[0-9]*$">
+                        <span>Year Must be four numbers only</span>
+
+                        <label for="description">Vehicle Description:</label>
+                        <input type="textbox" id="description" name="inv_description" required pattern="^[a-zA-Z0-9]*$">
+                        <span>Description can only contain 50 characters</span>
+
+                        <label for="image">Vehicle Image:</label>
+                        <input type="file" id="image" name="inv_image" accept="image/*">
+                        <span>Choose an image any file </span>
+
+                        <label for="thumbnail">Vechicle Thumbnail:</label>
+                        <input type="file" id="thumbnail" name="inv_thumbnail" accept="image/*">
+                        <span>Choose an image any file</span>
+
+                        <label for="price">Vechicle Price:</label>
+                        <input type="text" id="price" name="inv_price" required pattern="^[0-9]*$">
+                        <span>Price can only be numbers no commas ,</span>
+                        <label for="miles">Vechicle Miles:</label>
+                        <input type="text" id="miles" name="inv_miles" required pattern="^[a-zA-Z0-9]*$">
+                        <span>Miles can only be numbers no commas</span>
+                        <label for="description">Vechicle Miles:</label>
+                        <input type="text" id="color" name="inv_color" required pattern="^[a-zA-Z0-9]*$">
+                        <span>Color one word no spaces or special characters</span>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>

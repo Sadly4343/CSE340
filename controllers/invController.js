@@ -55,7 +55,7 @@ invCont.buildManagement = async function (req, res, next) {
 
 invCont.addClassification = async function (req, res, next) {
     let nav = await utilities.getNav();
-    res.render("inventory/addClassification", {
+    res.render("inventory/addclassification", {
         title: "Add Classification",
         nav,
         errors: null,
@@ -64,7 +64,7 @@ invCont.addClassification = async function (req, res, next) {
 
 invCont.addInventory = async function (req, res, next) {
     let nav = await utilities.getNav();
-    res.render("inventory/addInventory", {
+    res.render("inventory/addinventory", {
         title: "Add Inventory",
         nav,
         errors: null,
@@ -75,24 +75,54 @@ invCont.createClassification = async function (req, res) {
     let nav = await utilities.getNav();
     const { classification_name } = req.body
 
-    const classResult = await invModel.createClassification(
+    const classResult = await invModel.addClassification(
         classification_name
     )
 
     if (classResult) {
         req.flash(
             "notice",
-            `Congratulations, new ${classification} classification added`
+            `Congratulations, new ${classification_name} classification added`
         )
-        res.status(201).render("inv/management", {
+        res.status(201).render("inventory/management", {
             title: "Management",
             nav,
+            errors: null,
         })
     } else {
         req.flash("notice", "Sorry, the registration failed")
-        res.status(501).render("inv/addclassification", {
-            title: "AddClassification",
+        res.status(501).render("inventory/addclassification", {
+            title: "Add Classification",
             nav,
+            errors: null,
+        })
+    }
+
+}
+invCont.createInventory = async function (req, res) {
+    let nav = await utilities.getNav();
+    const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
+
+    const inventoryResult = await invModel.addInventory(
+        inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color
+    )
+
+    if (inventoryResult) {
+        req.flash(
+            "notice",
+            `Congratulations, new ${inv_make} vehicle added`
+        )
+        res.status(201).render("inventory/management", {
+            title: "Management",
+            nav,
+            errors: null,
+        })
+    } else {
+        req.flash("notice", "Sorry, the inventory failed")
+        res.status(501).render("inventory/addinventory", {
+            title: "Add Inventory",
+            nav,
+            errors: null,
         })
     }
 
