@@ -2,21 +2,24 @@
     <h1>
         <%= title %>
     </h1>
-    <% } else { %>
-        <p>Redirecting...</p>
-        <script>window.location.href = "/";</script>
-        <% } %>
+    <% } else { res.redirect('/') } %>
 
-            <%- messages() %> <!-- Uncommented this line to render flash messages -->
-
-                <p>Testsss</p>
-
-                <div class="classification-form">
-                    <form action="/inv/addclassification" method="POST">
-                        <label for="classification">Classification:</label>
-                        <input type="text" id="classification" name="classification_name" required
-                            pattern="^[a-zA-Z0-9]*$">
-                        <span>Classification cannot contain a space or special characters</span>
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
+        <%# messages() %>
+            <% if (errors) { %>
+                <ul class="notice">
+                    <% errors.array().forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+                    <div class="classification-form">
+                        <form action="/inv/addclassification" method="POST">
+                            <label for="classification">Classification:</label>
+                            <input type="text" id="classification" name="classification_name" required
+                                value="<%= locals.classification_name %>" pattern="^[a-zA-Z0-9]*$">
+                            <span>Classification cannot contain a space or special characters</span>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>

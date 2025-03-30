@@ -9,7 +9,7 @@ validate.classificationRules = () => {
             .escape()
             .notEmpty()
             .isLength({ min: 1 })
-            .matches(/^[^\s]+$/)
+            .matches(/^[a-zA-z0-9\s]+$/)
             .withMessage("Please provide a correct classification"),
     ]
 }

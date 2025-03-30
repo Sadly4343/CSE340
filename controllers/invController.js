@@ -48,6 +48,7 @@ invCont.buildManagement = async function (req, res, next) {
     let nav = await utilities.getNav();
     res.render("inventory/management", {
         title: "Management",
+        metaDescription: "Management Section of the page",
         nav,
         errors: null,
     });
@@ -57,6 +58,7 @@ invCont.addClassification = async function (req, res, next) {
     let nav = await utilities.getNav();
     res.render("inventory/addclassification", {
         title: "Add Classification",
+        metaDescription: "Add classification to the website page",
         nav,
         errors: null,
     });
@@ -64,9 +66,12 @@ invCont.addClassification = async function (req, res, next) {
 
 invCont.addInventory = async function (req, res, next) {
     let nav = await utilities.getNav();
+    let classificationList = await utilities.buildClassificationList();
     res.render("inventory/addinventory", {
         title: "Add Inventory",
+        metaDescription: "Add inventory to the website page",
         nav,
+        classificationList,
         errors: null,
     });
 }
@@ -94,6 +99,7 @@ invCont.createClassification = async function (req, res) {
         res.status(501).render("inventory/addclassification", {
             title: "Add Classification",
             nav,
+            classification_name,
             errors: null,
         })
     }
@@ -101,10 +107,11 @@ invCont.createClassification = async function (req, res) {
 }
 invCont.createInventory = async function (req, res) {
     let nav = await utilities.getNav();
-    const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
+    const { classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
+
 
     const inventoryResult = await invModel.addInventory(
-        inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color
+        classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color
     )
 
     if (inventoryResult) {
@@ -122,7 +129,9 @@ invCont.createInventory = async function (req, res) {
         res.status(501).render("inventory/addinventory", {
             title: "Add Inventory",
             nav,
+            classificationList,
             errors: null,
+            classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color,
         })
     }
 

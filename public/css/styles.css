@@ -164,12 +164,63 @@ h3 {
   padding: 10px 0px;
 }
 
-.login-form {
-  background-color: red;
-  display: grid;
-  flex-direction: auto;
+div.inventory-form form {
+  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
   width: 50%;
   margin: 0 auto;
+  font-size: 15px;
+}
+
+
+
+.login-form {
+  background-color: lightblue;
+  display: grid;
+  width: 50%;
+  margin: 0 auto;
+}
+
+div.inventory-form form input {
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+div.classification-form form {
+  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 50%;
+  margin: 0 auto;
+  font-size: 15px;
+}
+
+div.classification-form form button {
+  padding: 10px;
+  margin-top: 5px;
+}
+
+div.classification-form form button:hover {
+  background-color: lightgreen;
+  cursor: pointer;
+}
+
+
+div.inventory-form form button {
+  padding: 10px;
+  margin-top: 5px;
+}
+
+div.inventory-form form button:hover {
+  background-color: lightgreen;
+  cursor: pointer;
+}
+
+div.inventory-form form label {
+  margin-top: 10px;
 }
 
 .login-form form {
