@@ -48,7 +48,6 @@ invCont.buildManagement = async function (req, res, next) {
     let nav = await utilities.getNav();
     res.render("inventory/management", {
         title: "Management",
-        metaDescription: "Management Section of the page",
         nav,
         errors: null,
     });
@@ -58,7 +57,6 @@ invCont.addClassification = async function (req, res, next) {
     let nav = await utilities.getNav();
     res.render("inventory/addclassification", {
         title: "Add Classification",
-        metaDescription: "Add classification to the website page",
         nav,
         errors: null,
     });
@@ -69,7 +67,6 @@ invCont.addInventory = async function (req, res, next) {
     let classificationList = await utilities.buildClassificationList();
     res.render("inventory/addinventory", {
         title: "Add Inventory",
-        metaDescription: "Add inventory to the website page",
         nav,
         classificationList,
         errors: null,
