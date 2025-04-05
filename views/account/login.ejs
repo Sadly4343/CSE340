@@ -6,20 +6,29 @@
         <p>Redirecting...</p>
         <script>window.location.href = "/";</script>
         <% } %>
-
             <%- messages() %> <!-- Uncommented this line to render flash messages -->
+                <% if (errors && errors.array().length> 0) { %>
+                    <ul class="notice">
+                        <% errors.array().forEach(error=> { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
 
-                <div class="login-form">
-                    <form id="loginForm" action="/account/login" method="post">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                        <label for="accountPassword">Password:</label>
-                        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter
-                            and 1 special character</span>
-                        <input type="password" name="account_password" id="accountPassword" required
-                            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-                        <button type="submit">Login</button>
-                    </form>
+                        <div class="login-form">
+                            <form id="loginForm" action="/account/login" method="post">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="account_email" required>
+                                <label for="accountPassword">Password:</label>
+                                <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital
+                                    letter
+                                    and 1 special character</span>
+                                <input type="password" name="account_password" id="accountPassword" required
+                                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                                <button type="submit">Login</button>
+                            </form>
 
-                    <a href="/account/register">Register Here</a>
-                </div>
+                            <a href="/account/register">Register Here</a>
+                        </div>

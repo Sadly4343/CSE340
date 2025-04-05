@@ -1,0 +1,67 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+
+        <%# messages() %>
+            <% if (errors) { %>
+                <ul class="notice">
+                    <% errors.array().forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+                    <div class="inventory-form">
+                        <form action="/inv/update" method="post" id="updateForm">
+                            <label for="classificationList">Classification:</label>
+                            <%- classificationList %>
+                                <!--<span>Classification cannot contain a space or special characters</span> -->
+                                <label for="make">Vehicle Make:</label>
+                                <input type="text" id="make" name="inv_make" required value="<%= locals.inv_make %>"
+                                    pattern="^[a-zA-Z0-9]*$">
+                                <span>Vehicle Make no special characters</span>
+                                <label for="model">Model:</label>
+                                <input type="text" id="model" name="inv_model" required value="<%= locals.inv_model %>"
+                                    pattern="^[a-zA-Z0-9]*$">
+                                <span>Vehicle Model no special characters</span>
+                                <label for="year">Vehicle Year:</label>
+                                <input type="text" id="year" name="inv_year" required value="<%= locals.inv_year %>"
+                                    pattern="^[0-9]*$">
+                                <span>Year Must be four numbers only</span>
+
+                                <label for="description">Vehicle Description:</label>
+                                <input type="text" id="description" name="inv_description" required
+                                    value="<%= locals.inv_description %>">
+                                <span>Description can only contain 50 characters</span>
+
+                                <label for="image">Vehicle Image:</label>
+                                <input type="text" id="image" name="inv_image" value="<%= locals.inv_image %>">
+                                <span>Choose an image any file </span>
+
+                                <label for="thumbnail">Vechicle Thumbnail:</label>
+                                <input type="text" id="thumbnail" name="inv_thumbnail"
+                                    value="<%= locals.inv_thumbnail %>">
+                                <span>Choose an image any file</span>
+
+                                <label for="price">Vechicle Price:</label>
+                                <input type="number" id="price" name="inv_price" required
+                                    value="<%= locals.inv_price %>">
+                                <span>Price can only be numbers no commas ,</span>
+                                <label for="miles">Vechicle Miles:</label>
+                                <input type="number" id="miles" name="inv_miles" required
+                                    value="<%= locals.inv_miles %>">
+                                <span>Miles can only be numbers no commas</span>
+                                <label for="description">Vechicle Miles:</label>
+                                <input type="text" id="color" name="inv_color" required value="<%= locals.inv_color %>"
+                                    pattern="^[a-zA-Z0-9]*$">
+                                <span>Color one word no spaces or special characters</span>
+                                <input type="submit" name="submit" value="Update Vehicle">
+                                <input type="hidden" name="inv_id" <% if (locals.inv_id) { %> value="<%= locals.inv_id
+                                    %>" <% } %>>
+                        </form>
+                    </div>
+
+                    <script src="../../js/inv-update.js"></script>

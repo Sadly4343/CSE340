@@ -14,12 +14,19 @@ router.get("/detail/:carId", invController.buildByCarId);
 console.log(invController.buildManagement);
 
 
-router.get("/management", utilities.handleErrors(invController.buildManagement))
+router.get("/management", utilities.checkJWTToken, utilities.CheckType("Client"), utilities.handleErrors(invController.buildManagement))
 
 router.get("/addclassification", utilities.handleErrors(invController.addClassification))
 
 router.get("/addinventory", utilities.handleErrors(invController.addInventory))
 
+
+
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventory));
+
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteView));
+
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 router.post(
     "/addclassification",
     classValidate.classificationRules(),
@@ -32,6 +39,13 @@ router.post(
     inventoryValidate.checkinventoryData,
     utilities.handleErrors(invController.createInventory)
 )
+router.post("/update", utilities.handleErrors(invController.updateInventory))
+
+router.post(
+    "/deleteinventory",
+    utilities.handleErrors(invController.deleteInventory)
+)
+
 
 
 module.exports = router;

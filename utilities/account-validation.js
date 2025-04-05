@@ -53,9 +53,45 @@ validate.registationRules = () => {
     ]
 }
 
+validate.loginRules = () => {
+    return [
+        // valid email is required and cannot already exist in the DB
+        // valid email is required and cannot already exist in the database
+        body("account_email")
+            .trim()
+            .isEmail()
+            .normalizeEmail() // refer to validator.js docs
+            .withMessage("A valid email is required."),
+
+
+        // password is required and must be strong password
+        body("account_password")
+            .trim()
+            .notEmpty()
+            .withMessage("Password does not meet requirements."),
+    ]
+}
+
 /* ******************************
  * Check data and return errors or continue to registration
  * ***************************** */
+validate.checkLoginData = async (req, res, next) => {
+    const { account_email } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/login", {
+            errors,
+            title: "Login",
+            nav,
+            account_email,
+        })
+        return
+    }
+    next()
+}
+
 validate.checkRegData = async (req, res, next) => {
     const { account_firstname, account_lastname, account_email } = req.body
     let errors = []
