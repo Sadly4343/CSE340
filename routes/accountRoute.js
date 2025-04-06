@@ -16,7 +16,7 @@ router.get("/", utilities.handleErrors(accountController.buildAccountManagement)
 
 router.get("/update", utilities.handleErrors(accountController.buildAccountUpdate))
 
-
+router.get("/logout", utilities.handleErrors(accountController.logout));
 
 
 // Process the registration data
@@ -33,6 +33,8 @@ router.post(
     regValidate.checkLoginData,
     utilities.handleErrors(accountController.accountLogin)
 )
-router.post("/update/", utilities.handleErrors(accountController.updateAccount))
+router.post("/update/", regValidate.updateUserRules(), regValidate.checkUserData, utilities.handleErrors(accountController.updateAccount))
+
+router.post("/update-password", regValidate.passwordRules(), regValidate.checkPasswordData, utilities.handleErrors(accountController.updatePassword))
 
 module.exports = router;

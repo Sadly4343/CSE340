@@ -4,7 +4,7 @@
     </h1>
     <% } else { res.redirect('/') } %>
 
-        <%# messages() %>
+        <%- messages() %>
             <% if (errors) { %>
                 <ul class="notice">
                     <% errors.array().forEach(error=> { %>
@@ -14,10 +14,12 @@
                         <% }) %>
                 </ul>
                 <% } %>
-                    <h2>Welcome <%= name %>
-                    </h2>
-                    <p>You're Logged In</p>
-                    <a title="Manage Account Information" href="/account/update">Update Account Information</a>
-                    <% if (role==='Client' ) { %>
-                        <a title="Manage Inventory" href="/inv/management">Manage Inventory</a>
-                        <% } %>
+                    <div id="management">
+                        <h2>Welcome <%= name %>
+                        </h2>
+                        <p>You're Logged In</p>
+                        <a title="Manage Account Information" href="/account/update">Update Account Information</a>
+                        <% if (role==='Client' ) { %>
+                            <a title="Manage Inventory" href="/inv/management">Manage Inventory</a>
+                            <% } %>
+                    </div>

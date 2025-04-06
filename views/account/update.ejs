@@ -4,27 +4,27 @@
     </h1>
     <% } else { res.redirect('/') } %>
 
-        <%# messages() %>
-            <% if (errors) { %>
-                <ul class="notice">
-                    <% errors.array().forEach(error=> { %>
-                        <li>
-                            <%= error.msg %>
-                        </li>
-                        <% }) %>
-                </ul>
-                <% } %>
+        <% if (errors) { %>
+            <ul class="notice">
+                <% errors.array().forEach(error=> { %>
+                    <li>
+                        <%= error.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
+                <%- messages() %>
                     <h2>Welcome <%= name %>
                     </h2>
                     <div class="update-form">
                         <form action="/account/update" id="updateForm" method="post">
-                            <label for="first">First Name:</label>
+                            <label for="account_firstname">First Name:</label>
                             <input type="text" name="account_firstname" id="account_firstname" required
                                 value="<%= firstName %>">
-                            <label for="last">Last Name:</label>
+                            <label for="account_lastname">Last Name:</label>
                             <input type="text" name="account_lastname" id="account_lastname" required
                                 value="<%= lastName %>">
-                            <label for="email">Email:</label>
+                            <label for="account_email">Email:</label>
                             <input type="email" name="account_email" id="account_email" required
                                 value="<%= userEmail %>">
                             <input type="submit" name="submit" value="Update Account">
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="password-update">
-                        <form id="passwordForm" action="/account/" method="post">
+                        <form id="passwordForm" action="/account/update-password" method="post">
                             <label for="accountPassword">Password:</label>
                             <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital
                                 letter and 1
@@ -42,9 +42,7 @@
                             <input type="password" name="account_password" id="accountPassword" required
                                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
                             <input type="submit" name="submit" value="Update Password">
-                            <input type="hidden" name="account" <% if (locals.account_id) { %> value="<%=
-                                locals.account_id %>"
-                                <% } %>>
+                            <input type="hidden" name="account_id" value="<%= account_id %>">
                         </form>
                     </div>
 
