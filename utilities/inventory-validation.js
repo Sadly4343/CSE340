@@ -24,7 +24,8 @@ validate.inventoryRules = () => {
             .trim()
             .escape()
             .notEmpty()
-            .isLength({ min: 1, max: 25 })
+            .isLength({ min: 4, max: 4 })
+            .withMessage("Year is only 4 numbers required")
             .matches(/^[0-9]+$/)
             .withMessage("Please provide a correct year"),
 
@@ -32,24 +33,21 @@ validate.inventoryRules = () => {
             .trim()
             .escape()
             .notEmpty()
-            .isLength({ min: 1 })
+            .isLength({ min: 1, max: 50 })
+            .withMessage("Description is maximum 50 letters")
             .matches(/^[a-zA-Z0-9\s]+$/)
             .withMessage("Please provide a correct description"),
 
         body("inv_image")
             .trim()
-            .escape()
             .notEmpty()
-            .isLength({ min: 1 })
-            .matches(/^[a-zA-Z0-9\s\.\-\/]+$/)
+            .matches(/^\/?images\/vehicles\/[a-zA-Z0-9_\-]+\.(jpg|jpeg|png|gif)$/)
             .withMessage("Please provide a correct image"),
 
         body("inv_thumbnail")
             .trim()
-            .escape()
             .notEmpty()
-            .isLength({ min: 1 })
-            .matches(/^[a-zA-Z0-9\s\.\-\/]+$/)
+            .matches(/^\/?images\/vehicles\/[a-zA-Z0-9_\-]+\.(jpg|jpeg|png|gif)$/)
             .withMessage("Please provide a correct thumbnail"),
         body("inv_price")
             .trim()
@@ -68,7 +66,7 @@ validate.inventoryRules = () => {
             .escape()
             .notEmpty()
             .isLength({ min: 1 })
-            .matches(/^[a-zA-z\s]+$/)
+            .matches(/^[a-zA-z0-9]+$/)
             .withMessage("Please provide a correct color"),
     ]
 }
