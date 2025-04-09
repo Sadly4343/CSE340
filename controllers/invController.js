@@ -25,6 +25,24 @@ invCont.buildByClassificationId = async function (req, res, next) {
 
 }
 
+invCont.buildVehicles = async function (req, res, next) {
+    const data = await invModel.getAllVehicles()
+    const grid = await utilities.buildClassificationGrid(data)
+    let nav = await utilities.getNav()
+    if (data.length > 0) {
+        res.render("./inventory/index", {
+            title: "All Vehicles",
+            nav,
+            grid,
+        })
+    }
+    else {
+        next({ status: 404, message: 'Sorry, we appear to have lost that page.' });
+    }
+
+}
+
+
 invCont.buildByCarId = async function (req, res, next) {
     const car_Id = req.params.carId
     const data = await invModel.getInventoryByCarId(car_Id)

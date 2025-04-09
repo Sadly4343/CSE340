@@ -6,6 +6,10 @@ const invController = require("../controllers/invController")
 const classValidate = require('../utilities/classification-validation')
 const inventoryValidate = require('../utilities/inventory-validation')
 
+
+
+router.get("/", invController.buildVehicles);
+
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
@@ -14,7 +18,7 @@ router.get("/detail/:carId", invController.buildByCarId);
 console.log(invController.buildManagement);
 
 
-router.get("/management", utilities.checkJWTToken, utilities.CheckType("Client"), utilities.handleErrors(invController.buildManagement))
+router.get("/management", utilities.checkJWTToken, utilities.CheckType("Admin"), utilities.handleErrors(invController.buildManagement))
 
 router.get("/addclassification", utilities.handleErrors(invController.addClassification))
 
