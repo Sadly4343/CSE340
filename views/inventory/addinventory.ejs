@@ -29,30 +29,34 @@
                                 <span>Vehicle Model no special characters</span>
                                 <label for="year">Vehicle Year:</label>
                                 <input type="text" id="year" name="inv_year" required value="<%= locals.inv_year %>"
-                                    pattern="^[0-9]*$">
+                                    pattern="^\d{4}$">
                                 <span>Year Must be four numbers only</span>
 
                                 <label for="description">Vehicle Description:</label>
                                 <input type="text" id="description" name="inv_description" required
-                                    value="<%= locals.inv_description %>">
+                                    value="<%= locals.inv_description %>" pattern="^[a-zA-Z0-9\s]+$" maxlength="50">
                                 <span>Description can only contain 50 characters</span>
 
                                 <label for="image">Vehicle Image:</label>
-                                <input type="text" id="image" name="inv_image" value="<%= locals.inv_image %>">
+                                <input type="text" id="image" name="inv_image" value="<%= locals.inv_image %>" required
+                                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_\-]+\.(jpg|jpeg|png|gif)$"
+                                    placeholder="/images/vehicles/batmobile.jpg">
                                 <span>Choose an image any file </span>
 
                                 <label for="thumbnail">Vechicle Thumbnail:</label>
                                 <input type="text" id="thumbnail" name="inv_thumbnail"
-                                    value="<%= locals.inv_thumbnail %>">
+                                    value="<%= locals.inv_thumbnail %>" required
+                                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_\-]+\.(jpg|jpeg|png|gif)$"
+                                    placeholder="/images/vehicles/batmobile-tn.jpg">
                                 <span>Choose an image any file</span>
 
                                 <label for="price">Vechicle Price:</label>
                                 <input type="number" id="price" name="inv_price" required
-                                    value="<%= locals.inv_price %>">
+                                    value="<%= locals.inv_price %>" pattern="^\d+(\.\d{1,2})?$">
                                 <span>Price can only be numbers no commas ,</span>
                                 <label for="miles">Vechicle Miles:</label>
                                 <input type="number" id="miles" name="inv_miles" required
-                                    value="<%= locals.inv_miles %>">
+                                    value="<%= locals.inv_miles %>" pattern="^\d+$">
                                 <span>Miles can only be numbers no commas</span>
                                 <label for="color">Vechicle Color:</label>
                                 <input type="text" id="color" name="inv_color" required value="<%= locals.inv_color %>"

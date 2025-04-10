@@ -13,7 +13,9 @@ validate.inventoryRules = () => {
             .trim()
             .escape()
             .notEmpty()
+            .withMessage("Vehicle cannot be empty")
             .isLength({ min: 1 })
+            .withMessage("Must be larger than one letter")
             .matches(/^[a-zA-z\s]+$/)
             .withMessage("Please provide a correct make"),
 
@@ -21,7 +23,9 @@ validate.inventoryRules = () => {
             .trim()
             .escape()
             .notEmpty()
+            .withMessage("Model cannot be empty")
             .isLength({ min: 1 })
+            .withMessage("Must be larger than one letter")
             .matches(/^[a-zA-z\s]+$/)
             .withMessage("Please provide a correct model"),
 
@@ -29,6 +33,7 @@ validate.inventoryRules = () => {
             .trim()
             .escape()
             .notEmpty()
+            .withMessage("Year cannot be empty")
             .isLength({ min: 4, max: 4 })
             .withMessage("Year is only 4 numbers required")
             .matches(/^[0-9]+$/)
@@ -38,6 +43,7 @@ validate.inventoryRules = () => {
             .trim()
             .escape()
             .notEmpty()
+            .withMessage("Description cannot be empty")
             .isLength({ min: 1, max: 50 })
             .withMessage("Description is maximum 50 letters")
             .matches(/^[a-zA-Z0-9\s]+$/)
@@ -46,31 +52,37 @@ validate.inventoryRules = () => {
         body("inv_image")
             .trim()
             .notEmpty()
+            .withMessage("Image cannot be empty")
             .matches(/^\/?images\/vehicles\/[a-zA-Z0-9_\-]+\.(jpg|jpeg|png|gif)$/)
             .withMessage("Please provide a correct image"),
 
         body("inv_thumbnail")
             .trim()
             .notEmpty()
+            .withMessage("Thumbnail cannot be empty")
             .matches(/^\/?images\/vehicles\/[a-zA-Z0-9_\-]+\.(jpg|jpeg|png|gif)$/)
             .withMessage("Please provide a correct thumbnail"),
         body("inv_price")
             .trim()
             .escape()
             .notEmpty()
+            .withMessage("Price cannot be empty")
             .isFloat({ min: 0 })
             .withMessage("Please provide a correct price"),
         body("inv_miles")
             .trim()
             .escape()
             .notEmpty()
+            .withMessage("Miles cannot be empty")
             .isInt({ min: 0 })
             .withMessage("Please provide a correct miles"),
         body("inv_color")
             .trim()
             .escape()
             .notEmpty()
+            .withMessage("Color cannot be empty")
             .isLength({ min: 1 })
+            .withMessage("Color cannot a single letter")
             .matches(/^[a-zA-z0-9]+$/)
             .withMessage("Please provide a correct color"),
     ]
