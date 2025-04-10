@@ -137,7 +137,7 @@ Util.checkJWTToken = (req, res, next) => {
 }
 Util.CheckType = (checkedType) => {
     return (req, res, next) => {
-        if (res.locals.role !== checkedType) {
+        if (res.locals.role === checkedType) {
             console.log(checkedType);
             req.flash("Notice", "No Permissions")
             return res.redirect("/account/");

@@ -19,7 +19,7 @@
                         </h2>
                         <p>You're Logged In</p>
                         <a title="Manage Account Information" href="/account/update">Update Account Information</a>
-                        <% if (role==='Client' ) { %>
-                            <a title="Manage Inventory" href="/inv/management">Manage Inventory</a>
+                        <% if (role!=='Client' ) { %>
+                            <a title="Manage Inventory" href="/inv">Manage Inventory</a>
                             <% } %>
                     </div>
