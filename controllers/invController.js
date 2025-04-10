@@ -78,7 +78,6 @@ invCont.addInventory = async function (req, res, next) {
 }
 
 invCont.createClassification = async function (req, res) {
-    let nav = await utilities.getNav();
     const { classification_name } = req.body
 
     try {
@@ -87,6 +86,7 @@ invCont.createClassification = async function (req, res) {
         )
 
         if (classResult) {
+            let nav = await utilities.getNav();
             const classificationSelect = await utilities.buildClassificationList();
             req.flash(
                 "notice",
