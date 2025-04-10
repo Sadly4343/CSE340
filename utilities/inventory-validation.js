@@ -4,6 +4,11 @@ const validate = {}
 
 validate.inventoryRules = () => {
     return [
+        body("classification_id")
+            .notEmpty()
+            .withMessage("Please select a classification.")
+            .isInt({ min: 1 })
+            .withMessage("Invalid classification selected."),
         body("inv_make")
             .trim()
             .escape()
@@ -72,7 +77,7 @@ validate.inventoryRules = () => {
 }
 
 validate.checkinventoryData = async (req, res, next) => {
-    const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
+    const { classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -82,6 +87,7 @@ validate.checkinventoryData = async (req, res, next) => {
             errors,
             title: "addInventory",
             nav,
+            classification_id,
             inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classificationList
         })
         return;
