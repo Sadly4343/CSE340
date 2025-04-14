@@ -1,6 +1,7 @@
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const validate = {}
+const invModel = require("../models/inventory-model")
 
 validate.inventoryRules = () => {
     return [
@@ -107,6 +108,24 @@ validate.checkinventoryData = async (req, res, next) => {
     next();
 };
 
+validate.reviewRules = () => {
+    return [
+        body("review_rating")
+            .notEmpty()
+            .withMessage("Please select a review.")
+            .isInt({ min: 1, max: 5 })
+            .withMessage("Must be a value."),
+        body("review_text")
+            .trim()
+            .escape()
+            .notEmpty()
+            .withMessage("Please Fill information")
+            .isLength({ min: 1, max: 150 })
+            .withMessage("Must be between 1 and 150 characters")
+    ]
+}
+
+
 validate.checkUpdateData = async (req, res, next) => {
     const { inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
     let errors = []
@@ -124,6 +143,29 @@ validate.checkUpdateData = async (req, res, next) => {
     }
     next();
 };
+
+validate.checkReviewData = async (req, res, next) => {
+    const { inv_id, account_id, review_rating, review_text } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        const data = await invModel.getInventoryByCarId(inv_id);
+        const card = await utilities.buildClassificationCard([data]);
+        const reviews = await invModel.getReviewByCarId(inv_id);
+        res.render(`inventory/carview`, {
+            errors,
+            title: "Car View",
+            nav,
+            card,
+            reviews,
+            inv_id, account_id, review_rating, review_text
+        })
+        return;
+    }
+    next();
+};
+
 
 
 

@@ -97,6 +97,36 @@ nav ul {
 
 }
 
+div.input-review form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  background-color: lightblue;
+  border: solid 3px black;
+  box-shadow: 0px 5px 5px black;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+div.input-review label,
+button {
+  margin-top: 10px;
+}
+
+div.output-review {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: lightblue;
+  border: solid 3px black;
+  box-shadow: 0px 5px 5px black;
+  margin-top: 20px;
+}
+
+
 div.vehicle-card {
   display: grid;
   grid-template-columns: auto auto;
@@ -211,6 +241,11 @@ div.inventory-form form {
   padding: 20px;
 }
 
+.bottom-section {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
 
 #updateForm label {
   margin-top: 10px;
@@ -311,7 +346,13 @@ div.inventory-form form label {
   nav ul {
     padding: 0px;
   }
+
+  .bottom-section {
+    display: flex;
+    flex-direction: column;
+  }
 }
+
 
 @media (min-width: 768px) {
   #wrapper {

@@ -76,6 +76,18 @@ async function addReview(inv_id, account_id, review_rating, review_text) {
     }
 }
 
+async function getReview(inv_id, account_id, review_rating, review_text) {
+    try {
+        const sql = "INSERT INTO reviews (inv_id, account_id, review_rating, review_text) VALUES ($1, $2, $3, $4) RETURNING *"
+        const result = await pool.query(sql, [inv_id, account_id, review_rating, review_text]);
+        return result.rows[0];
+    } catch (error) {
+        console.error("Error in adding review", error)
+        return null;
+    }
+}
+
+
 
 /* ***************************
  *  Update Inventory Data
@@ -115,6 +127,38 @@ async function updateInventory(
     }
 }
 
+async function getReviewByCarId(carId) {
+    try {
+        const data = await pool.query(
+            `SELECT * FROM public.reviews AS r 
+        JOIN public.account AS a 
+        ON r.account_id = a.account_id 
+        WHERE r.inv_id = $1`,
+            [carId]
+        )
+        return data.rows;
+    }
+    catch (error) {
+        console.error("getreviewId error " + error)
+        return [];
+    }
+}
+
+async function getInventoryByCarId(carId) {
+    try {
+        const data = await pool.query(
+            `SELECT * FROM public.inventory AS i 
+        JOIN public.classification AS c 
+        ON i.classification_id = c.classification_id 
+        WHERE i.inv_id = $1`,
+            [carId]
+        )
+        return data.rows[0];
+    }
+    catch (error) {
+        console.error("getclassificationbyid error " + error)
+    }
+}
 /* ***************************
  *  Delete Inventory Data
  * ************************** */
@@ -131,4 +175,4 @@ async function deleteInventoryItem(inv_id) {
     }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByCarId, addClassification, addInventory, updateInventory, deleteInventoryItem, addReview };
+module.exports = { getReviewByCarId, getClassifications, getInventoryByClassificationId, getInventoryByCarId, addClassification, addInventory, updateInventory, deleteInventoryItem, addReview };

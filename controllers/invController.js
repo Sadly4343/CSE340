@@ -29,6 +29,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildByCarId = async function (req, res, next) {
     const car_Id = req.params.carId
     const data = await invModel.getInventoryByCarId(car_Id)
+    const reviews = await invModel.getReviewByCarId(car_Id) || [];
 
     if (data != null || data != undefined) {
         const carName = data.inv_year + " " + data.inv_make + " " + data.inv_model;
@@ -41,6 +42,8 @@ invCont.buildByCarId = async function (req, res, next) {
             card,
             inv_id: data.inv_id,
             account_id: account_id,
+            reviews,
+            errors: null,
         })
     } else {
         next({ status: 404, message: 'Sorry, we appear to have lost that page.' });
@@ -281,31 +284,23 @@ invCont.createReview = async function (req, res) {
 
     const { inv_id, account_id, review_rating, review_text } = req.body
 
-
+    let nav = await utilities.getNav();
     try {
         const reviewResult = await invModel.addReview(
             inv_id, account_id, review_rating, review_text
         )
 
         if (reviewResult) {
-            let nav = await utilities.getNav();
-            const classificationSelect = await utilities.buildClassificationList();
             req.flash(
                 "notice",
-                `Congratulations, new ${classification_name} classification added`
+                `Congratulations, new Review  added`
             )
-            res.status(201).render("inventory/management", {
-                title: "Management",
-                nav,
-                errors: null,
-                classificationSelect,
-            })
+            res.redirect(`/inv/detail/${inv_id}`);
         } else {
             req.flash("notice", "Sorry, the registration failed")
             res.status(501).render("/inventory", {
                 title: "Add Classification",
                 nav,
-                classification_name,
                 errors: null,
             })
         }
@@ -315,7 +310,6 @@ invCont.createReview = async function (req, res) {
         res.status(500).render("inventory", {
             title: "Add Classification",
             nav,
-            classification_name,
             errors: null,
         });
     }
