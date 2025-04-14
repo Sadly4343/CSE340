@@ -34,10 +34,13 @@ invCont.buildByCarId = async function (req, res, next) {
         const carName = data.inv_year + " " + data.inv_make + " " + data.inv_model;
         const card = await utilities.buildClassificationCard([data])
         let nav = await utilities.getNav()
+        const account_id = res.locals.account_id;
         res.render("./inventory/carview", {
             title: carName,
             nav,
             card,
+            inv_id: data.inv_id,
+            account_id: account_id,
         })
     } else {
         next({ status: 404, message: 'Sorry, we appear to have lost that page.' });
@@ -270,6 +273,55 @@ invCont.updateInventory = async function (req, res, next) {
 
         })
     }
+}
+
+invCont.createReview = async function (req, res) {
+    console.log("createReview function was called");
+    console.log("Data received in createReview:", req.body);
+
+    const { inv_id, account_id, review_rating, review_text } = req.body
+
+
+    try {
+        const reviewResult = await invModel.addReview(
+            inv_id, account_id, review_rating, review_text
+        )
+
+        if (reviewResult) {
+            let nav = await utilities.getNav();
+            const classificationSelect = await utilities.buildClassificationList();
+            req.flash(
+                "notice",
+                `Congratulations, new ${classification_name} classification added`
+            )
+            res.status(201).render("inventory/management", {
+                title: "Management",
+                nav,
+                errors: null,
+                classificationSelect,
+            })
+        } else {
+            req.flash("notice", "Sorry, the registration failed")
+            res.status(501).render("/inventory", {
+                title: "Add Classification",
+                nav,
+                classification_name,
+                errors: null,
+            })
+        }
+    } catch (error) {
+        console.error("Error in the create Review", error)
+        req.flash("notice", "Sorry, the review failed")
+        res.status(500).render("inventory", {
+            title: "Add Classification",
+            nav,
+            classification_name,
+            errors: null,
+        });
+    }
+
+
+
 }
 
 /* ***************************

@@ -48,6 +48,10 @@ router.post(
     utilities.handleErrors(invController.deleteInventory)
 )
 
+router.post("/review", (req, res, next) => {
+    console.log("Route /inventory/review was called");
+    next();
+}, invController.createReview);
 
 
 module.exports = router;

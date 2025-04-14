@@ -26,6 +26,8 @@ async function getInventoryByClassificationId(classification_id) {
 }
 
 
+
+
 async function getInventoryByCarId(carId) {
     try {
         const data = await pool.query(
@@ -62,6 +64,18 @@ async function addInventory(classification_id, inv_make, inv_model, inv_year, in
         return null;
     }
 }
+
+async function addReview(inv_id, account_id, review_rating, review_text) {
+    try {
+        const sql = "INSERT INTO reviews (inv_id, account_id, review_rating, review_text) VALUES ($1, $2, $3, $4) RETURNING *"
+        const result = await pool.query(sql, [inv_id, account_id, review_rating, review_text]);
+        return result.rows[0];
+    } catch (error) {
+        console.error("Error in adding review", error)
+        return null;
+    }
+}
+
 
 /* ***************************
  *  Update Inventory Data
@@ -117,4 +131,4 @@ async function deleteInventoryItem(inv_id) {
     }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByCarId, addClassification, addInventory, updateInventory, deleteInventoryItem };
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByCarId, addClassification, addInventory, updateInventory, deleteInventoryItem, addReview };

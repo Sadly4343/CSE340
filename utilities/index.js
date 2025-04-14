@@ -74,7 +74,8 @@ Util.buildClassificationCard = async function (data) {
             card1 += '<p> Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</p>';
             card1 += '<p> Description: ' + vehicle.inv_description + '</p>';
             card1 += '<p> Color: ' + vehicle.inv_color + '</p>';
-            card1 += '<p> Miles: ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>';
+            card1 += '<p> Miles: ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>'
+            card1 += '<form> Review: </form>';
 
         })
         card += '</div>'
@@ -127,6 +128,7 @@ Util.checkJWTToken = (req, res, next) => {
                 res.locals.loggedin = 1;
                 res.locals.role = accountData.account_type;
                 res.locals.name = accountData.account_firstname;
+                res.locals.account_id = accountData.account_id;
                 res.cookie("logged", true, { maxAge: 3600 * 1000 });
                 next()
             })

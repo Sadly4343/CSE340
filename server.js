@@ -39,9 +39,13 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
-
-app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
 
 // Express Messages Middleware
 app.use(flash())

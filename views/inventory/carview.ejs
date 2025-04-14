@@ -8,3 +8,24 @@
             <div class="vehicle-card">
                 <%- card %>
             </div>
+            <h3> Leave review for the Car</h3>
+            <form action="/inv/review" method="post">
+                <input type="hidden" name="inv_id" value="<%= inv_id %>">
+                <input type="hidden" name="account_id" value="<%= account_id %>">
+
+                <label for="review_rating">Rating (1 to 5)</label>
+                <select name="review_rating" id="review_rating" required>
+                    <option value="">Select a Rating</option>
+                    <option value="1">1 - Negative</option>
+                    <option value="2">2 - Not Great</option>
+                    <option value="3">3 - Decent</option>
+                    <option value="4">4 - Great</option>
+                    <option value="5">5 - Amazing</option>
+                </select>
+
+                <label for="review_text">Review:</label>
+                <label for="review_text">Vehicle Description:</label>
+                <input type="text" id="review_text" name="review_text" required>
+
+                <button type="submit">Submit Review</button>
+            </form>
